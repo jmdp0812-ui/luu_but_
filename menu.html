@@ -13,6 +13,9 @@
     .left img {width: 100%; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.2);}
     .right {color: black;}
     p{font-size: 22px;}
+    form {font-size: 22px;}
+    textarea{background: linear-gradient(to right, #ffffff, #ffe4ec, #e0c3fc);}
+    input[type="submit"] {background: linear-gradient(to right, #000, #333); color: white; font-size: 22px; font-family: 'Times New Roman';
 </style>
 </head>
 <body>
@@ -24,14 +27,47 @@
 <main>
   <div class="left">
     <img src="1.jpg" alt="Kỷ yếu 2026">
-    <img src="hdh.jpn" alt="H">
-    <img src="https://via.placeholder.com/600x400" alt="Hình ảnh minh họa">
   </div>
   <div class="right">
     <h2>Welcome to Tổ Văn Hóa trực thuộc Trung Ương</h2>
     <p>Có những năm tháng trôi qua rất nhanh, nhanh đến mức chúng ta chưa kịp nhận ra mình đã cùng nhau đi hết một chặng đường. Chúng ta không chỉ là những người bạn cùng lớp, mà là những buổi học chung, những lần nhắc bài khe khẽ, những tiếng cười vang cả góc lớp và cả những lúc cùng nhau cố gắng vì một mục tiêu chung. Cuốn lưu bút online này được tạo ra để lưu giữ lại tất cả những khoảnh khắc ấy — những kỷ niệm bình thường nhưng đáng nhớ, những dòng tâm sự chưa từng nói hết, và cả lời chúc dành cho nhau trong hành trình phía trước. Dù sau này mỗi người có đi một hướng khác nhau, hy vọng rằng khi mở lại những trang này, chúng ta sẽ mỉm cười vì đã từng là một phần thanh xuân của nhau.</p>
     <p> </p>
   </div>
+<br>
+<br>
 </main>
+<form id="form" method="POST">
+  <label for="ms">Lời nhắn đến chúng tớ:</label>
+  <br>
+  <textarea id="ms" name="ms" rows="10" cols="202" placeholder="Nhập lời nhắn ở đây..."></textarea>
+  <br>
+  <input type= "submit" id="s" value ="GỬI">
+  <p id="tb" style="display: none; color: green;">Đã gửi thành công, cảm ơn bạn nha</p>
+</form>
+
+
+<script>
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbxANGmrkJyJhejJkAlD9Qfp_bE-7aaLt-rovZpGEYGuKImBdCOS0L5eABH6hunIMMI-/exec';
+  const form = document.getElementById('form');
+  const s = document.getElementById('s');
+  const tb = document.getElementById('tb');
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();    
+    s.value = "Đang gửi...";
+    s.disabled = true;
+
+    fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+    .then(response => {tb.style.display = "block";
+      form.reset();
+      s.value = "GỬI";
+      s.disabled = false;
+      setTimeout(() => { tb.style.display = "none"; }, 3000);})
+    .catch(error => {
+      alert('ERROR');
+      s.disabled = false;
+      s.value = "GỬI";});
+});
+</script>
 </body>
 </html>
